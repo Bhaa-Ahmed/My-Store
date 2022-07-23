@@ -1,0 +1,9 @@
+nav {
+  background-color: rgb(48, 186, 245);
+}
+
+nav a,
+nav span {
+  color: #ffffff;
+  text-decoration: none;
+}

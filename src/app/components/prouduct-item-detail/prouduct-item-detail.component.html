@@ -1,0 +1,50 @@
+<section>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-5 offset-1">
+        <img src="{{ product.url }}" alt="{{ product.name }}" />
+      </div>
+      <div class="col-3 offset">
+        <h2>{{ product.name }}</h2>
+        <p>$ {{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <form
+          class="d-flex flex-column justify-content-center align-items-center"
+          #addToCartForm="ngForm"
+          (ngSubmit)="onSubmit(addToCartForm)"
+        >
+          <label class="mb-3">Quantity</label>
+          <select
+            class="form-select mb-3 w-50 text-center"
+            name="quamtity"
+            ngModel
+            required
+          >
+            <option value="" selected disabled>quantity</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          <br />
+          <button
+            type="submit"
+            class="btn btn-primary w-100 mb-3"
+            (click)="alert()"
+            [disabled]="addToCartForm.invalid"
+          >
+            Add to cart
+          </button>
+        </form>
+        <a routerLink="/productlist"> Back to products list </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+<section *ngIf="products.length == 0">
+  <div class="container">
+    <div class="row text-center mt-5">
+      <h1>There's no Products on Cart!</h1>
+    </div>
+  </div>
+</section>
+<section *ngIf="products.length != 0">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 offset-2">
+        <div class="row my-5" *ngFor="let product of products">
+          <div class="col-6">
+            <img src="{{ product.url }}" alt="{{ product.name }}" />
+          </div>
+          <div class="col-5 offset-1">
+            <h3>{{ product.name }}</h3>
+            <p>$ {{ product.price }}</p>
+            <form>
+              <label for="amount">Amount</label>
+              <input
+                type="number"
+                id="amount"
+                value="{{ product.quantity }}"
+                class="form-control"
+                [(ngModel)]="product.quantity"
+                name="qunatity"
+                (ngModelChange)="changeAmount(product, product.quantity)"
+              />
+            </form>
+            <button
+              class="btn btn-danger mt-3"
+              (click)="removeFromCart(product)"
+            >
+              Remove from cart
+            </button>
+          </div>
+        </div>
+        <h3 *ngIf="totalPrice != 0">Total: $ {{ totalPrice }}</h3>
+      </div>
+      <div class="col-6">
+        <form
+          #creditForm="ngForm"
+          (ngSubmit)="onSubmit(creditForm)"
+          *ngIf="products.length > 0"
+        >
+          <div class="my-4">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="(minimum 3 characters)"
+              class="form-control"
+              required
+              minlength="3"
+              name="name"
+              ngModel
+              #name="ngModel"
+              [(ngModel)]="fullName"
+            />
+            <div class="text-danger" *ngIf="name.invalid && name.touched">
+              Please type a valid name.
+            </div>
+          </div>
+          <div class="my-4">
+            <label for="address">Address</label>
+            <input
+              type="text"
+              id="address"
+              placeholder="(minimum 6 characters)"
+              class="form-control"
+              required
+              minlength="6"
+              ngModel
+              #address="ngModel"
+              name="address"
+            />
+            <div class="text-danger" *ngIf="address.invalid && address.touched">
+              Please type a valid address.
+            </div>
+          </div>
+          <div class="my-4">
+            <label for="credit">Credit card number</label>
+            <input
+              type="number"
+              id="credit"
+              placeholder="(16-digit number)"
+              class="form-control"
+              required
+              pattern=".{16,16}"
+              ngModel
+              #credit="ngModel"
+              name="credit"
+            />
+            <div class="text-danger" *ngIf="credit.invalid && credit.touched">
+              Please type a valid credit number.
+            </div>
+          </div>
+          <p class="text-muted">
+            we'll never share your payment details with anyone else.
+          </p>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="creditForm.invalid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
